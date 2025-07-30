@@ -276,6 +276,18 @@ namespace Yarn.Unity
         public UnityEventString? onNodeComplete;
 
         /// <summary>
+        /// A Unity event that is called when a new dialogue line has started.
+        /// </summary>
+        [Group("Events", foldOut: true)]
+        public UnityEvent? onNewDialogueLine;
+
+        /// <summary>
+        /// A Unity event that is called when a new option view pops up.
+        /// </summary>
+        [Group("Events", foldOut: true)]
+        public UnityEvent? onNewOptionView;
+
+        /// <summary>
         /// A Unity event that is called when the dialogue starts running.
         /// </summary>
         [Group("Events", foldOut: true)]
@@ -752,6 +764,8 @@ namespace Yarn.Unity
                 pendingTasks.Add(task);
             }
 
+            onNewDialogueLine?.Invoke();
+
             // Wait for all line view tasks to finish delivering the line.
             await YarnTask.WhenAll(pendingTasks);
 
@@ -806,6 +820,8 @@ namespace Yarn.Unity
             }
 
             var dialogueSelectionTCS = new YarnTaskCompletionSource<DialogueOption?>();
+
+            onNewOptionView?.Invoke();
 
             async YarnTask WaitForOptionsView(DialoguePresenterBase? view)
             {
