@@ -20,16 +20,17 @@ namespace Yarn.Unity
     /// <summary>
     /// Allows pausing the current typewrite through [pause/] markers.
     /// </summary>
-    public sealed class PauseEventProcessor : IActionMarkupHandler
+    public sealed class PauseEventProcessor : ActionMarkupHandler
     {
         private Dictionary<int, float> pauses = new();
-        public void OnLineDisplayComplete()
+        public override void OnLineDisplayComplete()
         {
             pauses.Clear();
         }
 
-        public void OnLineDisplayBegin(MarkupParseResult line, TMP_Text text)
+        public override void OnLineDisplayBegin(MarkupParseResult line, TMP_Text text)
         {
+
             pauses = new();
             // grabbing out any pauses inside the line
             foreach (var attribute in line.Attributes)
@@ -67,12 +68,12 @@ namespace Yarn.Unity
             }
         }
 
-        public void OnPrepareForLine(MarkupParseResult line, TMP_Text text)
+        public override void OnPrepareForLine(MarkupParseResult line, TMP_Text text)
         {
             return;
         }
 
-        public async YarnTask OnCharacterWillAppear(int currentCharacterIndex, MarkupParseResult line, CancellationToken cancellationToken)
+        public override async YarnTask OnCharacterWillAppear(int currentCharacterIndex, MarkupParseResult line, CancellationToken cancellationToken)
         {
             if (pauses.TryGetValue(currentCharacterIndex, out var duration))
             {
@@ -80,7 +81,7 @@ namespace Yarn.Unity
             }
         }
 
-        public void OnLineWillDismiss()
+        public override void OnLineWillDismiss()
         {
             return;
         }
