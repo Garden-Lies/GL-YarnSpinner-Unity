@@ -91,11 +91,6 @@ public sealed class PaletteMarkerProcessor : Yarn.Unity.ReplacementMarkupHandler
             return;
         }
 
-        if (palette.BasicMarkers.Count == 0)
-        {
-            return;
-        }
-
         if (lineProvider == null)
         {
             lineProvider = (LineProviderBehaviour)GameObject.FindAnyObjectByType<DialogueRunner>().LineProvider;
