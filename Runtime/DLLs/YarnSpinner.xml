@@ -2786,7 +2786,7 @@
             <seealso cref="M:Yarn.Markup.LineParser.RegisterMarkerProcessor(System.String,Yarn.Markup.IAttributeMarkerProcessor)"/>
             <seealso cref="M:Yarn.Markup.LineParser.DeregisterMarkerProcessor(System.String)"/>
         </member>
-        <member name="M:Yarn.Markup.IAttributeMarkerProcessor.ProcessReplacementMarker(Yarn.Markup.MarkupAttribute,System.Text.StringBuilder,System.Collections.Generic.List{Yarn.Markup.MarkupAttribute},System.String)">
+        <member name="M:Yarn.Markup.IAttributeMarkerProcessor.ProcessReplacementMarker(Yarn.Markup.MarkupAttribute,System.Text.StringBuilder,System.Collections.Generic.List{Yarn.Markup.MarkupAttribute},YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta,System.String)">
             <summary>
             Produces replacement text for a marker.
             </summary>
@@ -2798,6 +2798,7 @@
             any text needed from this marker.</param>
             <param name="childAttributes">The child attributes of <paramref
             name="marker"/>.</param>
+            <param name="sharedMarkupsMeta"></param>
             <param name="localeCode">A BCP-47 locale code that represents the
             locale in which any processing should take place.</param>
             <example>
@@ -2980,7 +2981,7 @@
             <c>[plural]</c>, and <c>[ordinal]</c>.
             </summary>
         </member>
-        <member name="M:Yarn.Markup.BuiltInMarkupReplacer.ProcessReplacementMarker(Yarn.Markup.MarkupAttribute,System.Text.StringBuilder,System.Collections.Generic.List{Yarn.Markup.MarkupAttribute},System.String)">
+        <member name="M:Yarn.Markup.BuiltInMarkupReplacer.ProcessReplacementMarker(Yarn.Markup.MarkupAttribute,System.Text.StringBuilder,System.Collections.Generic.List{Yarn.Markup.MarkupAttribute},YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta,System.String)">
             <inheritdoc/>
         </member>
         <member name="T:Yarn.Markup.MarkupParseException">
@@ -3032,12 +3033,18 @@
             result.
             </summary>
         </member>
-        <member name="M:Yarn.Markup.MarkupParseResult.#ctor(System.String,System.Collections.Generic.List{Yarn.Markup.MarkupAttribute})">
+        <member name="P:Yarn.Markup.MarkupParseResult.SharedMarkupsMeta">
+            <summary>
+            Shared for markups meta
+            </summary>
+        </member>
+        <member name="M:Yarn.Markup.MarkupParseResult.#ctor(System.String,System.Collections.Generic.List{Yarn.Markup.MarkupAttribute},YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta)">
             <summary>
             Initializes a new instance of the <see cref="T:Yarn.Markup.MarkupParseResult"/> struct.
             </summary>
             <param name="text">The plain text.</param>
             <param name="attributes">The list of attributes.</param>
+            <param name="sharedMarkupsMeta"></param>
         </member>
         <member name="M:Yarn.Markup.MarkupParseResult.TryGetAttributeWithName(System.String,Yarn.Markup.MarkupAttribute@)">
             <summary>
@@ -3565,6 +3572,44 @@
         </member>
         <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
             <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="T:YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta">
+            <summary>
+            Container giving additionnal informations
+            markup replacement and offset correction.
+            </summary>
+        </member>
+        <member name="P:YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta.MarkupsMeta">
+            <summary>
+            Markups meta of a line.
+            </summary>
+        </member>
+        <member name="T:YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta.MarkupMeta">
+            <summary>
+            Represents meta of markup (open and closed tag included.)
+            </summary>
+        </member>
+        <member name="P:YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta.MarkupMeta.MarkupPosition">
+            <summary>
+            Beginning markup position
+            </summary>
+        </member>
+        <member name="P:YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta.MarkupMeta.MarkupLength">
+            <summary>
+            Total length of markup
+            </summary>
+        </member>
+        <member name="M:YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta.MarkupMeta.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initialize markup meta
+            </summary>
+            <param name="markupPosition"></param>
+            <param name="markupLength"></param>
+        </member>
+        <member name="M:YarnSpinner.YarnSpinner.Markup.SharedMarkupsMeta.#ctor">
+            <summary>
+            Make a new meta container.
+            </summary>
         </member>
     </members>
 </doc>

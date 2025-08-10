@@ -35,10 +35,13 @@ namespace Yarn.Unity
             // grabbing out any pauses inside the line
             foreach (var attribute in line.Attributes)
             {
+
                 if (attribute.Name != "pause")
                 {
                     continue;
                 }
+
+                int position = NormalizePosition(attribute.Position, line);
 
                 if (attribute.Properties.TryGetValue("pause", out MarkupValue value))
                 {
@@ -47,23 +50,24 @@ namespace Yarn.Unity
                     switch (value.Type)
                     {
                         case MarkupValueType.Integer:
-                            pauses.Add(attribute.Position, value.IntegerValue);
+                            pauses.Add(position, value.IntegerValue);
                             break;
                         case MarkupValueType.Float:
-                            pauses.Add(attribute.Position, value.FloatValue * 1000);
+                            pauses.Add(position, value.FloatValue * 1000);
                             break;
                         default:
                             Debug.LogWarning($"Pause property is of type {value.Type}, which is not allowed. Defaulting to one second.");
-                            pauses.Add(attribute.Position, 1000);
+                            pauses.Add(position, 1000);
 
                             break;
                     }
                 }
                 else
                 {
+
                     // they haven't set a duration, so we will instead use the
                     // default of one second
-                    pauses.Add(attribute.Position, 1000);
+                    pauses.Add(position, 1000);
                 }
             }
         }

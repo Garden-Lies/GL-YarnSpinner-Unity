@@ -8,6 +8,7 @@ using System.Text;
 using UnityEngine;
 using Yarn.Markup;
 using Yarn.Unity;
+using YarnSpinner.YarnSpinner.Markup;
 
 #nullable enable
 
@@ -45,8 +46,9 @@ public sealed class PaletteMarkerProcessor : Yarn.Unity.ReplacementMarkupHandler
     /// apply, but this is ignored for TextMeshPro styles.</param>
     /// <param name="localeCode">The locale code to use when formatting the style.</param>
     /// <returns>A list of markup diagnostics if there are any errors, otherwise an empty list.</returns>
-    public override List<LineParser.MarkupDiagnostic> ProcessReplacementMarker(MarkupAttribute marker, StringBuilder childBuilder, List<MarkupAttribute> childAttributes, string localeCode)
+    public override List<LineParser.MarkupDiagnostic> ProcessReplacementMarker(MarkupAttribute marker, StringBuilder childBuilder, List<MarkupAttribute> childAttributes, SharedMarkupsMeta sharedMarkupsMeta, string localeCode)
     {
+
         if (palette == null)
         {
             return new List<LineParser.MarkupDiagnostic>() {
@@ -56,8 +58,11 @@ public sealed class PaletteMarkerProcessor : Yarn.Unity.ReplacementMarkupHandler
 
         if (palette.PaletteForMarker(marker.Name, out var format))
         {
+
             childBuilder.Insert(0, format.Start);
             childBuilder.Append(format.End);
+
+            BuildCorrectionMetaForMarkup(marker, sharedMarkupsMeta, format.Start.Length + format.End.Length);
 
             // finally we need to know if we have to offset the markers
             // most of the time we won't have to do anything

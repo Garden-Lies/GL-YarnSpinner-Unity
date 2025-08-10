@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using Yarn.Markup;
+using YarnSpinner.YarnSpinner.Markup;
 
 #nullable enable
 
@@ -17,12 +18,14 @@ namespace Yarn.Unity
     /// </summary>
     public sealed class StyleMarkerProcessor : ReplacementMarkupHandler
     {
+
         [SerializeField]
         public LineProviderBehaviour? lineProvider;
 
         /// <inheritdoc/>
-        public override List<LineParser.MarkupDiagnostic> ProcessReplacementMarker(MarkupAttribute marker, StringBuilder childBuilder, List<MarkupAttribute> childAttributes, string localeCode)
+        public override List<LineParser.MarkupDiagnostic> ProcessReplacementMarker(MarkupAttribute marker, StringBuilder childBuilder, List<MarkupAttribute> childAttributes, SharedMarkupsMeta sharedMarkupsMeta, string localeCode)
         {
+
             // ok so we check if we have a property called style
             // if not give up
             if (!marker.TryGetProperty("style", out string? property))
@@ -37,6 +40,8 @@ namespace Yarn.Unity
             childBuilder.Insert(0, $"<style=\"{property}\">");
             childBuilder.Append("</style>");
 
+            BuildCorrectionMetaForMarkup(marker, sharedMarkupsMeta, $"<style=\"{property}\"></style>".Length);
+
             // at this point we have no errors
             // but it is entirely possible that style has added visible characters
             // we have no way of knowing this
@@ -47,6 +52,7 @@ namespace Yarn.Unity
         // Start is called before the first frame update
         void Start()
         {
+
             if (lineProvider == null)
             {
                 lineProvider = (LineProviderBehaviour)GameObject.FindAnyObjectByType<DialogueRunner>().LineProvider;
