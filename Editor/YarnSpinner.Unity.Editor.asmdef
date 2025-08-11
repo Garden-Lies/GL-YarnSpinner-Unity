@@ -17,7 +17,6 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "Yarn.Google.Protobuf.dll",
         "YarnSpinner.dll",
         "YarnSpinner.Compiler.dll",
         "Yarn.Antlr4.Runtime.Standard.dll",
@@ -32,7 +31,9 @@
         "System.Collections.Immutable.dll",
         "System.Reflection.Metadata.dll",
         "System.Runtime.CompilerServices.Unsafe.dll",
-        "Yarn.System.Text.Json.dll"
+        "Yarn.System.Text.Json.dll",
+        "Google.Protobuf.dll",
+        "Yarn.Google.Protobuf.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

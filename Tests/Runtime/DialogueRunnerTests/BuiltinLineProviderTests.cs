@@ -28,7 +28,7 @@ namespace Yarn.Unity.Tests
     {
         public MarkupParseResult ParseMarkup(string rawText, string localeCode)
         {
-            return new MarkupParseResult(rawText, new());
+            return new MarkupParseResult(rawText, new(), new());
         }
     }
 

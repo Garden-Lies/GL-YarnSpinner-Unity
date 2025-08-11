@@ -17,7 +17,6 @@
     "precompiledReferences": [
         "Yarn.Antlr4.Runtime.Standard.dll",
         "Yarn.CsvHelper.dll",
-        "Yarn.Google.Protobuf.dll",
         "Yarn.System.Buffers.dll",
         "Yarn.System.Memory.dll",
         "Yarn.System.Numerics.Vectors.dll",
@@ -29,7 +28,9 @@
         "Yarn.Microsoft.Bcl.AsyncInterfaces.dll",
         "Yarn.System.Text.Json.dll",
         "Yarn.System.Text.Encodings.Web.dll",
-        "Yarn.System.Threading.Tasks.Extensions.dll"
+        "Yarn.System.Threading.Tasks.Extensions.dll",
+        "Google.Protobuf.dll",
+        "Yarn.Google.Protobuf.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],
