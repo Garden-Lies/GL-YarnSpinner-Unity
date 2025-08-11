@@ -123,13 +123,22 @@ namespace Yarn.Unity
         /// <inheritdoc/>
         public abstract void OnLineWillDismiss();
 
+        protected static int NormalizePosition(int basePosition, MarkupParseResult line)
+        {
+            return ActionMarkupHandlerUtils.NormalizePosition(basePosition, line);
+        }
+    }
+
+    public static class ActionMarkupHandlerUtils
+    {
+
         /// <summary>
         /// Normalize position of attribute considering inserted markup.
         /// </summary>
         /// <param name="basePosition">Initial attribute position</param>
         /// <param name="line">Parsed line</param>
         /// <returns>Normalized position</returns>
-        protected static int NormalizePosition(int basePosition, MarkupParseResult line)
+        public static int NormalizePosition(int basePosition, MarkupParseResult line)
         {
 
             int newPosition = basePosition;
